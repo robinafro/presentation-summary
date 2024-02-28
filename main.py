@@ -2,6 +2,7 @@ from get_text import get_text
 from scrape import summarize as summarize_f
 
 import re
+import sys
 
 def summarize(file_path, bullet_points=True):
     text_arr, text = get_text(file_path)
@@ -29,4 +30,8 @@ def summarize(file_path, bullet_points=True):
     return summarized
 
 if __name__ == "__main__":
-    print(summarize(input("Enter the file path: "), bullet_points=True))
+    # Read the command arguments
+    if len(sys.argv) > 1:
+        print(summarize(sys.argv[1], bullet_points=(sys.argv[2] == "true" if len(sys.argv) > 2 else True)))
+    else:
+        print(summarize(input("Enter the file path: "), bullet_points=(input("Bullet points? (true/false): ").lower() == "true")))
